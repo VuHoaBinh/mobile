@@ -1,42 +1,62 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import { TextInput } from "react-native-web";
-
+import { useState } from "react";
 export default function App() {
+  const [enterTextInput, setTextInput] = useState("");
+  const [enterListInput, setListInput] = useState([]);
+
+  function inputTextHandler(event) {
+    console.log(event);
+    setTextInput(event);
+  }
+
+  function addItemHandler() {
+    alert(enterTextInput);
+    setListInput((currentListInput) => [...currentListInput, enterTextInput]);
+  }
   return (
-    <View style={styles.container}>
+    <View style={styles.appContainer}>
       <Text>Hello world!!</Text>
-      <View style={styles.appContainer}>
+      <View style={styles.inputContainer}>
         <TextInput
+          style={styles.inputText}
           placeholder="Enter in here ... "
-          style={{
-            borderWidth: 2,
-            borderColor: "red",
-            padding: 5,
-            borderRadius: 5,
-            margin: 8,
-          }}
+          onChangeText={inputTextHandler}
         />
-        <Button
-          title="Add"
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        />
+        <Button title="Add items" onPress={addItemHandler} />
       </View>
-      <View>
+      <View style={styles.listItems}>
         <Text>List of Items</Text>
+        {enterListInput.map((index, item) => (
+          <Text key={index}>{item}</Text>
+        ))}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 50,
-  },
   appContainer: {
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 16,
+    width: "100%",
+  },
+  inputContainer: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
+    paddingBottom: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: "gray",
   },
+  inputText: {
+    borderColor: "red",
+    width: "70%",
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+  },
+  listItems: { flex: 3 },
 });
