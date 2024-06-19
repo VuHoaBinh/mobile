@@ -1,4 +1,6 @@
-import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+// Alert,
+// ScrollView,
 import { TextInput } from "react-native-web";
 import { useState } from "react";
 export default function App() {
@@ -11,8 +13,11 @@ export default function App() {
   }
 
   function addItemHandler() {
-    alert(enterTextInput);
-    setListInput((currentListInput) => [...currentListInput, enterTextInput]);
+    // alert(enterTextInput);
+    setListInput((currentListInput) => [
+      ...currentListInput,
+      { text: enterTextInput, id: Math.random().toString() },
+    ]);
   }
   return (
     <View style={styles.appContainer}>
@@ -26,10 +31,29 @@ export default function App() {
         <Button title="Add items" onPress={addItemHandler} />
       </View>
       <View style={styles.listItems}>
-        <Text>List of Items</Text>
-        {enterListInput.map((item, index) => (
-          <Text key={index}>{item}</Text>
-        ))}
+        {/* <ScrollView alwaysBounceVertical={true}>
+          <Text>List of Items: </Text>
+          {enterListInput.map((item) => (
+            <Text key={item} style={styles.itemList}>
+              {item}
+            </Text>
+          ))}
+        </ScrollView> */}
+
+        <Text>List of Items: </Text>
+        <FlatList
+          data={enterListInput}
+          renderItem={(items) => {
+            return (
+              <View>
+                <Text style={styles.itemList}>{items.item.text}</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item) => {
+            return item.id;
+          }}
+        />
       </View>
     </View>
   );
@@ -58,5 +82,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
-  listItems: { flex: 3 },
+  listItems: { flex: 5 },
+  itemList: {
+    backgroundColor: "green",
+    width: "100%",
+    color: "white",
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+  },
 });
