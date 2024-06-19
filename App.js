@@ -27,7 +27,7 @@ export default function App() {
       </View>
       <View style={styles.listItems}>
         <Text>List of Items</Text>
-        {enterListInput.map((index, item) => (
+        {enterListInput.map((item, index) => (
           <Text key={index}>{item}</Text>
         ))}
       </View>
