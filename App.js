@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Button, FlatList } from "react-native";
 // ScrollView,
 import { TextInput } from "react-native-web";
 import { useState } from "react";
+import ListItem from "./component/ListItem";
+
 export default function App() {
   const [enterTextInput, setTextInput] = useState("");
   const [enterListInput, setListInput] = useState([]);
@@ -44,11 +46,7 @@ export default function App() {
         <FlatList
           data={enterListInput}
           renderItem={(items) => {
-            return (
-              <View>
-                <Text style={styles.itemList}>{items.item.text}</Text>
-              </View>
-            );
+            return <ListItem text={items.item.text} />;
           }}
           keyExtractor={(item) => {
             return item.id;
@@ -83,12 +81,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   listItems: { flex: 5 },
-  itemList: {
-    backgroundColor: "green",
-    width: "100%",
-    color: "white",
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-  },
 });
