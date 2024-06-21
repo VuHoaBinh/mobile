@@ -1,37 +1,28 @@
-import { StyleSheet, Text, View, Button, FlatList } from "react-native";
-// Alert,
-// ScrollView,
-import { TextInput } from "react-native-web";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import { useState } from "react";
 import ListItem from "./component/ListItem";
+import AddItem from "./component/AddItem";
 
 export default function App() {
-  const [enterTextInput, setTextInput] = useState("");
   const [enterListInput, setListInput] = useState([]);
 
-  function inputTextHandler(event) {
-    console.log(event);
-    setTextInput(event);
-  }
-
-  function addItemHandler() {
+  function addItemHandler(enterTextInput) {
     // alert(enterTextInput);
     setListInput((currentListInput) => [
       ...currentListInput,
       { text: enterTextInput, id: Math.random().toString() },
     ]);
   }
+  function deleteItemHandler(enterTextInput) {
+    console.log("delete oke!!");
+  }
   return (
     <View style={styles.appContainer}>
       <Text>Hello world!!</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Enter in here ... "
-          onChangeText={inputTextHandler}
-        />
-        <Button title="Add items" onPress={addItemHandler} />
-      </View>
+      <AddItem
+        inputItemList={addItemHandler}
+        deleteItemList={deleteItemHandler}
+      />
       <View style={styles.listItems}>
         {/* <ScrollView alwaysBounceVertical={true}>
           <Text>List of Items: </Text>
@@ -46,7 +37,7 @@ export default function App() {
         <FlatList
           data={enterListInput}
           renderItem={(items) => {
-            return <ListItem text={items.item.text} />;
+            return <ListItem listItemOnClick={items.item.text} />;
           }}
           keyExtractor={(item) => {
             return item.id;
@@ -64,21 +55,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     width: "100%",
   },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: "gray",
-  },
-  inputText: {
-    borderColor: "red",
-    width: "70%",
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-  },
+
   listItems: { flex: 5 },
 });
