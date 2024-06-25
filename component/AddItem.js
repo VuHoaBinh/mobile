@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { useState } from "react";
 import { TextInput, Button } from "react-native";
+import { Modal } from "react-native";
 function AddItem(props) {
   const [enterTextInput, setTextInput] = useState("");
 
@@ -13,18 +14,23 @@ function AddItem(props) {
     props.inputItemList(enterTextInput);
     setTextInput("");
   }
-
+  function btnBackOnHandler() {
+    props.btnBack(false);
+  }
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.inputText}
-        placeholder="Enter in here ... "
-        onChangeText={inputTextHandler}
-        value={enterTextInput}
-      />
+    <Modal visible={props.visible} animationType="slide">
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Enter in here ... "
+          onChangeText={inputTextHandler}
+          value={enterTextInput}
+        />
 
-      <Button title="Add items" onPress={inputItemListOnHandler} />
-    </View>
+        <Button title="Add items" onPress={inputItemListOnHandler} />
+      </View>
+      <Button title="Back" onPress={btnBackOnHandler} />
+    </Modal>
   );
 }
 
