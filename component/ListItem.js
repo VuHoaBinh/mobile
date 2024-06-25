@@ -2,7 +2,11 @@ import { StyleSheet, Text, Pressable } from "react-native";
 
 function ListItem(props) {
   return (
-    <Pressable onPress={props.deleteItemList}>
+    <Pressable
+      android_ripple={{ Color: "black" }}
+      onPress={props.deleteItemList.bind(this, props.id)}
+      style={({ pressData }) => pressData && style.pressItem}
+    >
       <Text style={styles.itemList}>{props.listItemOnClick}</Text>
     </Pressable>
   );
@@ -18,5 +22,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
+  },
+  pressItem: {
+    opacity: 0.5,
   },
 });

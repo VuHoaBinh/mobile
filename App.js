@@ -13,16 +13,16 @@ export default function App() {
       { text: enterTextInput, id: Math.random().toString() },
     ]);
   }
-  function deleteItemHandler(enterTextInput) {
-    console.log("delete oke!!");
+  function deleteItemHandler(id) {
+    setListInput((currentListInput) => {
+      return currentListInput.filter((goal) => goal.id !== id);
+    });
+    console.log(id);
   }
   return (
     <View style={styles.appContainer}>
       <Text>Hello world!!</Text>
-      <AddItem
-        inputItemList={addItemHandler}
-        deleteItemList={deleteItemHandler}
-      />
+      <AddItem inputItemList={addItemHandler} />
       <View style={styles.listItems}>
         {/* <ScrollView alwaysBounceVertical={true}>
           <Text>List of Items: </Text>
@@ -37,7 +37,13 @@ export default function App() {
         <FlatList
           data={enterListInput}
           renderItem={(items) => {
-            return <ListItem listItemOnClick={items.item.text} />;
+            return (
+              <ListItem
+                listItemOnClick={items.item.text}
+                id={items.item.id}
+                deleteItemList={deleteItemHandler}
+              />
+            );
           }}
           keyExtractor={(item) => {
             return item.id;
