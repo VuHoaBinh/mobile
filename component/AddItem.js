@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import { useState } from "react";
 import { TextInput, Button } from "react-native";
 import { Modal } from "react-native";
@@ -14,11 +14,22 @@ function AddItem(props) {
     props.inputItemList(enterTextInput);
     setTextInput("");
   }
+
   function btnBackOnHandler() {
     props.btnBack(false);
   }
+
   return (
     <Modal visible={props.visible} animationType="slide">
+      <View>
+        <Image
+          source={require("../assets/download.jpg")}
+          alt="alt"
+          width={"100"}
+          height={"100"}
+          style={{ margin: "70px" }}
+        />
+      </View>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.inputText}

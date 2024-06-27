@@ -73,6 +73,8 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 16,
     width: "100%",
+    backgroundColor: "green",
+    color: "white",
   },
 
   listItems: { flex: 5 },
